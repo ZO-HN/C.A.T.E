@@ -307,18 +307,18 @@ fn find_project_root() -> Option<std::path::PathBuf> {
     // 3. Fallback: well-known direct paths
     let home = home_dir();
     let direct = [
-        format!("{home}/OpenJarvis"),
-        format!("{home}/projects/hazy/OpenJarvis"),
-        format!("{home}/projects/OpenJarvis"),
-        format!("{home}/src/OpenJarvis"),
-        format!("{home}/Documents/OpenJarvis"),
-        format!("{home}/Desktop/OpenJarvis"),
-        format!("{home}/Developer/OpenJarvis"),
-        format!("{home}/dev/OpenJarvis"),
-        format!("{home}/Code/OpenJarvis"),
-        format!("{home}/code/OpenJarvis"),
-        format!("{home}/repos/OpenJarvis"),
-        format!("{home}/github/OpenJarvis"),
+        format!("{home}/C.A.T.E"),
+        format!("{home}/projects/hazy/C.A.T.E"),
+        format!("{home}/projects/C.A.T.E"),
+        format!("{home}/src/C.A.T.E"),
+        format!("{home}/Documents/C.A.T.E"),
+        format!("{home}/Desktop/C.A.T.E"),
+        format!("{home}/Developer/C.A.T.E"),
+        format!("{home}/dev/C.A.T.E"),
+        format!("{home}/Code/C.A.T.E"),
+        format!("{home}/code/C.A.T.E"),
+        format!("{home}/repos/C.A.T.E"),
+        format!("{home}/github/C.A.T.E"),
     ];
     for p in &direct {
         let path = std::path::PathBuf::from(p);
@@ -346,13 +346,13 @@ fn find_project_root() -> Option<std::path::PathBuf> {
         let parent_path = std::path::PathBuf::from(parent);
         if let Ok(entries) = std::fs::read_dir(&parent_path) {
             for entry in entries.flatten() {
-                let candidate = entry.path().join("OpenJarvis");
+                let candidate = entry.path().join("C.A.T.E");
                 if candidate.join("pyproject.toml").exists() {
                     return Some(candidate);
                 }
                 // Also check if the entry itself is OpenJarvis (case-insensitive match)
                 if let Some(name) = entry.file_name().to_str() {
-                    if name.eq_ignore_ascii_case("openjarvis")
+                    if name.eq_ignore_ascii_case("C.A.T.E")
                         && entry.path().join("pyproject.toml").exists()
                     {
                         return Some(entry.path());
@@ -1296,7 +1296,7 @@ async fn boot_backend(backend: SharedBackend, status: SharedStatus) {
             return;
         }
 
-        let target_path = std::path::PathBuf::from(home_dir()).join("OpenJarvis");
+        let target_path = std::path::PathBuf::from(home_dir()).join("C.A.T.E");
         let clone_target = target_path.display().to_string();
 
         // If the directory exists but is not a valid project, don't overwrite
@@ -1321,7 +1321,7 @@ async fn boot_backend(backend: SharedBackend, status: SharedStatus) {
                 "clone",
                 "--depth",
                 "1",
-                "https://github.com/open-jarvis/OpenJarvis.git",
+                "https://github.com/ZO-HN/C.A.T.E.git",
                 &clone_target,
             ])
             .stdout(std::process::Stdio::null())
@@ -1339,7 +1339,7 @@ async fn boot_backend(backend: SharedBackend, status: SharedStatus) {
                     let mut s = status.lock().await;
                     s.error = Some(format!(
                         "Failed to download OpenJarvis: {}. \
-                         Clone manually: git clone https://github.com/open-jarvis/OpenJarvis.git {}",
+                         Clone manually: git clone https://github.com/ZO-HN/C.A.T.E.git {}",
                         stderr.trim(),
                         clone_target,
                     ));
@@ -1349,7 +1349,7 @@ async fn boot_backend(backend: SharedBackend, status: SharedStatus) {
                     let mut s = status.lock().await;
                     s.error = Some(format!(
                         "Failed to download OpenJarvis: {}. \
-                         Clone manually: git clone https://github.com/open-jarvis/OpenJarvis.git {}",
+                         Clone manually: git clone https://github.com/ZO-HN/C.A.T.E.git {}",
                         e, clone_target,
                     ));
                     return;
@@ -3379,7 +3379,7 @@ pub fn run() {
             let health = MenuItemBuilder::with_id("health", "Health: starting...")
                 .enabled(false)
                 .build(app)?;
-            let quit = MenuItemBuilder::with_id("quit", "Quit OpenJarvis").build(app)?;
+            let quit = MenuItemBuilder::with_id("quit", "Quit C.A.T.E").build(app)?;
 
             let menu = MenuBuilder::new(app)
                 .item(&show)
@@ -3391,7 +3391,7 @@ pub fn run() {
 
             let _tray = TrayIconBuilder::with_id("main")
                 .icon(app.default_window_icon().unwrap().clone())
-                .tooltip("OpenJarvis")
+                .tooltip("C.A.T.E")
                 .menu(&menu)
                 .on_menu_event(move |app, event| match event.id().as_ref() {
                     "show" => {
@@ -3566,9 +3566,9 @@ mod tests {
     #[test]
     fn project_root_installed_desktop_finds_checkout_beside_executable() {
         let root = unique_test_root("installed-desktop-root");
-        let install_dir = root.join("localappdata").join("OpenJarvis");
+        let install_dir = root.join("localappdata").join("C.A.T.E");
         let bundled_checkout = install_dir.join("src");
-        let unrelated_clone = root.join("home").join("OpenJarvis");
+        let unrelated_clone = root.join("home").join("C.A.T.E");
         std::fs::create_dir_all(&bundled_checkout).unwrap();
         std::fs::create_dir_all(&unrelated_clone).unwrap();
         std::fs::write(bundled_checkout.join("pyproject.toml"), "[project]\n").unwrap();

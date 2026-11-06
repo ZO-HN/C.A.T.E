@@ -92,6 +92,7 @@ export function Sidebar() {
       >
         <div className="flex flex-col h-full w-[260px]">
           {/* Header */}
+          <div className="px-5 pt-4 text-sm font-semibold">C.A.T.E</div>
           <div className="flex items-center justify-between px-3 pt-3 pb-2">
             <button
               onClick={toggleSidebar}

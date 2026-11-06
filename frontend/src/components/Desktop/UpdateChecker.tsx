@@ -6,6 +6,8 @@ const CHECK_INTERVAL_MS = 30 * 60 * 1000; // 30 minutes
 const DISABLED_KEY = 'oj-auto-update-disabled';
 
 export function isAutoUpdateDisabled(): boolean {
+  // C.A.T.E has no signed release channel yet; never install upstream binaries.
+  if (import.meta.env.VITE_CATE_UPDATES_ENABLED !== '1') return true;
   try {
     return localStorage.getItem(DISABLED_KEY) === '1';
   } catch {

@@ -35,10 +35,10 @@ def _should_skip_update_check(ctx: click.Context, argv: list[str]) -> bool:
 
 
 @click.group(
-    help="OpenJarvis — modular AI assistant backend",
+    help="C.A.T.E — modular AI assistant backend",
     invoke_without_command=True,
 )
-@click.version_option(version=openjarvis.__version__, prog_name="jarvis")
+@click.version_option(version=openjarvis.__version__, prog_name="cate")
 @click.option("--verbose", is_flag=True, default=False, help="Enable debug logging")
 @click.option("--quiet", is_flag=True, default=False, help="Suppress non-error output")
 @click.option(
@@ -126,7 +126,6 @@ if not _DATA_BOUNDARY_BOOTSTRAP:
     from openjarvis.cli.quickstart_cmd import quickstart
     from openjarvis.cli.registry_cmd import registry
     from openjarvis.cli.scheduler_cmd import scheduler
-    from openjarvis.cli.self_update_cmd import self_update
     from openjarvis.cli.serve import serve
     from openjarvis.cli.skill_cmd import skill
     from openjarvis.cli.telemetry_cmd import telemetry
@@ -185,7 +184,7 @@ if not _DATA_BOUNDARY_BOOTSTRAP:
         _logging.getLogger(__name__).debug(
             "deep-research command unavailable: %s", _dr_exc
         )
-    cli.add_command(self_update, "self-update")
+    # C.A.T.E updates are reviewed through this fork, not upstream installers.
     cli.add_command(bootstrap_cmd, "_bootstrap")
 
     # Gateway CLI commands (lazy import to avoid pulling starlette)
